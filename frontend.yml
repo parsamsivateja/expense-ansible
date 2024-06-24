@@ -20,7 +20,7 @@
     - name: Download frontend code and extracting
       ansible.bultin.get_url:
         url: https://expense-artifacts.s3.amazonaws.com/frontend.zip
-        dest: /tmp/Frontend.zip
+        dest: /tmp/frontend.zip
 
     - name: Starting Nginx Services
 
