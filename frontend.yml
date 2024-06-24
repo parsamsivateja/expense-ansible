@@ -22,7 +22,14 @@
         src: https://expense-artifacts.s3.amazonaws.com/frontend.zip
         dest: /usr/share/nginx/html
         remote_src: yes
-#    - name: Starting Nginx Services
+
+   - name: Starting Nginx Services
+     ansible.builtin.systemd:
+        name: nginx
+        state: restarted
+        enabled: yes
+
+
 
 
 
