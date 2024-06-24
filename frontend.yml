@@ -8,7 +8,7 @@
         state: installed
 
     - name: Placing Expense Config File in Nginx
-      ansible.bulitin.copy:
+      ansible.builtin.copy:
         src: expense.conf
         dest: /etc/nginx/default.d/expense.conf
 
