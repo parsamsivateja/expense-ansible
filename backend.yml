@@ -90,6 +90,6 @@
         name: backend
         state: restarted
         enabled: yes
-        demon-reload: yes
+        demon_reload: yes
 
 
