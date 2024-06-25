@@ -1,5 +1,6 @@
 - name: mysql setup
   hosts: all
+  become: yes
   tasks:
     - name: copy mysql Repo
       ansible.builtin.copy:
