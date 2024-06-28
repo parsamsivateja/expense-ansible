@@ -1,0 +1,43 @@
+- name: installing nodejs
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+- name: Install Nodejs
+  ansible.builtin.dnf:
+    name: nodejs
+- name: copy backend file
+  ansible.builtin.copy:
+    src: backend.service
+    dest: /etc/systemd/system/backend.service
+
+- name: Add application user
+  ansible.builtin.user:
+    name: expense
+
+- name: cleanup old content
+  ansible.builtin.file:
+    path: /app
+    state: directory
+
+- name: Dowload backend code and Extract it
+  ansible.builtin.unarchive:
+    src: https://expense-artifacts.s3.amazonaws.com/backend.zip
+    dest: /app
+    remote_src: yes
+
+- name: install nodejs dependencies
+  ansible.builtin.shell: npm install
+  args:
+    chdir: /app
+
+- name: Install mysql client
+  ansible.builtin.dnf:
+    name: mysql
+
+- name: load schema
+  ansible.builtin.shell: mysql -h mysql.sivateja25.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
+
+- name: start backend service
+  ansible.builtin.systemd:
+    name: backend
+    state: restarted
+    enabled: yes
+    daemon-reload: yes
