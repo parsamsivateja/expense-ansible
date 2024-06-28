@@ -1,8 +1,12 @@
+- name: verify Nodejs
+  ansible.builtin.shell: type npm
 - name: installing nodejs
   ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
 - name: Install Nodejs
   ansible.builtin.dnf:
     name: nodejs
+
 - name: copy backend file
   ansible.builtin.copy:
     src: backend.service
